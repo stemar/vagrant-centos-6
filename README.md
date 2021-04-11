@@ -8,6 +8,8 @@ Make a Vagrant box with CentOS 6.10 LAMP stack, plus configure it for developmen
 - Leave code and version control files physically outside the VM while virtually accessing them inside the VM.
 - Use any GUI tool (IDEs, browsers, database administration applications, Git clients) outside the VM to access code and data inside the VM.
 
+---
+
 ## Summary
 
 ### Quick installation
