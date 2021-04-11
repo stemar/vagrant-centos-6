@@ -1,0 +1,2 @@
+# Load config files from the config directory "/etc/httpd/conf.d".
+Include conf.d/*.conf
