@@ -130,7 +130,7 @@ vagrant ssh
 Bash prompt in guest machine is now:
 
 ```bash
-[vagrant@devbox ~]$
+[vagrant@centos-6-10 ~]$
 ```
 
 ---
@@ -193,7 +193,7 @@ php -i
 
 <http://localhost:8000>
 
-You see default Centos 6.10 Apache 2 Test Page.
+You see the default Centos 6.10 Apache 2 Test Page.
 
 #### Check Adminer
 
@@ -204,7 +204,7 @@ You see default Centos 6.10 Apache 2 Test Page.
 
 #### Check your domain(s)
 
-Ex.: Replace `domain.com` with your domain and your custom forwarded port number.
+Replace `domain.com` with your domain and your custom forwarded port number.
 
 <http://domain.com.localhost:8000>
 
