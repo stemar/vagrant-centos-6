@@ -52,8 +52,8 @@ fi
 while read line; do
     esc_line=$(sed 's:/:\\/:g' <<< $(printf '%q\n' "$line"))
     sed -i "/$esc_line/d" /etc/httpd/conf/httpd.conf
-done < $VM_CONFIG_PATH/httpd.conf.overrides
-cat $VM_CONFIG_PATH/httpd.conf.overrides >> /etc/httpd/conf/httpd.conf
+done < $VM_CONFIG_PATH/httpd.conf.fix
+cat $VM_CONFIG_PATH/httpd.conf.fix >> /etc/httpd/conf/httpd.conf
 
 echo '==> Installing MySQL'
 

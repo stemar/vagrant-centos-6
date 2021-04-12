@@ -1,6 +1,6 @@
 require 'yaml'
 dir = File.join(File.dirname(File.expand_path(__FILE__)))
-settings = YAML.load_file("#{dir}/config/settings.yaml")
+settings = YAML.load_file("#{dir}/settings.yaml")
 
 Vagrant.require_version ">= 2.0.0"
 Vagrant.configure("2") do |config|
