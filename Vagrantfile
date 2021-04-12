@@ -8,7 +8,6 @@ Vagrant.configure("2") do |config|
 
   # https://app.vagrantup.com/bento/boxes/centos-6/versions/202103.18.0
   config.vm.box = "bento/centos-6" # 64GB HDD
-  config.vm.box_version = "202103.18.0"
   config.vm.provider "virtualbox" do |vb|
     vb.name   = settings[:machine][:hostname]
     vb.memory = settings[:machine][:memory]
