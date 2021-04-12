@@ -37,8 +37,8 @@ Vagrant.configure("2") do |config|
 
   # Provision bash script
   config.vm.provision :shell, path: "centos-6-10.sh", env: {
-    "FORWARDED_PORT_80"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host]
+    "FORWARDED_PORT_80"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host],
     "GUEST_SYNCED_FOLDER" => settings[:synced_folder][:guest],
-    "VM_CONFIG_PATH"      => "#{settings[:vm_folder][:guest]}/centos-6-10/config",
+    "VM_CONFIG_PATH"      => "#{settings[:vm_folder][:guest]}/centos-6-10/config"
   }
 end
