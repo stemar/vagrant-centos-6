@@ -88,7 +88,7 @@ chkconfig httpd on
 
 echo '==> Starting MySQL'
 
-service mysqld start > /dev/null 2>&1
+service mysqld start
 chkconfig mysqld on
 mysqladmin -u root password ""
 
