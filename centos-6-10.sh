@@ -72,7 +72,7 @@ cp $VM_CONFIG_PATH/php.ini.htaccess /var/www/.htaccess
 echo '==> Installing Adminer'
 
 if [ ! -d /usr/share/adminer ]; then
-    mkdir -p /usr/share/adminer/plugins
+    mkdir -p /usr/share/adminer
     curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/adminer.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
