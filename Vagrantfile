@@ -18,12 +18,12 @@ Vagrant.configure("2") do |config|
   # vagrant@centos-6-10
   config.vm.hostname = settings[:machine][:hostname]
 
-  # Disable default dir sync
+  # Disable default synced_folder
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   # Synchronize code and VM folders
-  config.vm.synced_folder settings[:vm_folder][:host], settings[:vm_folder][:guest], owner: "vagrant", group: "vagrant"
   config.vm.synced_folder settings[:synced_folder][:host], settings[:synced_folder][:guest], owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder settings[:vm_folder][:host],     settings[:vm_folder][:guest],     owner: "vagrant", group: "vagrant"
 
   # Apache: http://localhost:8000
   settings[:forwarded_ports].each do |port_options|
@@ -37,8 +37,8 @@ Vagrant.configure("2") do |config|
 
   # Provision bash script
   config.vm.provision :shell, path: "centos-6-10.sh", env: {
-    "VM_CONFIG_PATH"      => "#{settings[:vm_folder][:guest]}/centos-6-10/config",
-    "GUEST_SYNCED_FOLDER" => settings[:synced_folder][:guest],
     "FORWARDED_PORT_80"   => settings[:forwarded_ports].find{|port| port[:guest] == 80}[:host]
+    "GUEST_SYNCED_FOLDER" => settings[:synced_folder][:guest],
+    "VM_CONFIG_PATH"      => "#{settings[:vm_folder][:guest]}/centos-6-10/config",
   }
 end
