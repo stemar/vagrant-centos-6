@@ -113,6 +113,7 @@ If anything goes wrong:
 
 ```bash
 vagrant destroy -f
+vagrant box update
 vagrant up --provision
 ```
 
