@@ -12,6 +12,8 @@ Make a Vagrant box with CentOS 6.10 LAMP stack, plus configure it for developmen
 
 ## Summary
 
+VM = virtual machine
+
 ### Quick installation
 
 In host machine terminal:
@@ -34,17 +36,17 @@ vagrant ssh
 ### Result
 
 - 64bit Centos 6.10 virtual machine with virtual 64GB HDD, 3GB RAM and legacy LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-6).
-- Custom `.bashrc` to modify bash settings.
+- Custom `.bashrc` to modify bash settings inside the virtual machine.
 - Updated Yum repositories for Centos 6 after End Of Life.
-- Configure LAMP settings from the host machine instead of inside the guest machine.
-- Provisioning in `bash` because the commands can easily be copied and pasted inside a VM manually for experimentation.
-- Keep multiple Vagrant boxes in a separate location than your projects|code location.
+- Configure LAMP settings from the host machine instead of inside the virtual machine.
+- Provisioning in `bash` because the commands can easily be copied/pasted inside a VM or server for troubleshooting.
+- Keep multiple Vagrant boxes in a separate location than your projects/code location.
     - `.vagrant/` is created independently within each VM directory.
     - Avoid port collision by editing `settings.yaml`.
     - Multiple Vagrant boxes can be run concurrently from separate terminal tabs.
 - Copied SSH keys to use the same in and out of VM.
 - Copied Git and Subversion configurations to use the same in and out of VM.
-- Synchronized projects|code directories.
+- Synchronized projects/code directories.
     - Disabled default `/vagrant` synchronized to `Vagrantfile`'s location.
 - Apache serves any local website at `http://domain.com.localhost:8000` with [VirtualDocumentRoot](https://httpd.apache.org/docs/2.2/mod/mod_vhost_alias.html).
 - Add more VirtualHost blocks from the host machine.
@@ -61,7 +63,7 @@ vagrant ssh
 - [VirtualBox 6+ Extension Pack](https://www.virtualbox.org/wiki/Downloads)
 - [Vagrant 2+](https://www.vagrantup.com/downloads.html)
 
-SSH keys, Git config and Subversion config settings from host machine are copied in guest machine.
+SSH keys, Git config and Subversion config settings from host machine are copied in virtual machine.
 
 Check if you have them on your host machine:
 
@@ -77,7 +79,7 @@ cat ~/.gitconfig
 
 Edit values in `settings.yaml`.
 
-- Edit the guest machine's `hostname` or the `memory` values if necessary.
+- Edit the virtual machine's `hostname` or the `memory` values if necessary.
 - Change `synced_folder` values to match your host machine pathname.
 - Add arrays to the `forwarded_ports` value if necessary.
     - Ex.: Change the forwarded ports of this virtual machine to avoid port collision if you have multiple virtual machines running at the same time.
@@ -126,7 +128,7 @@ Connect to the box through SSH:
 vagrant ssh
 ```
 
-Bash prompt in guest machine is now:
+Bash prompt in virtual machine is now:
 
 ```bash
 [vagrant@centos-6-10 ~]$
