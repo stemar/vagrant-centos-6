@@ -33,8 +33,7 @@ vagrant ssh
 
 ### Result
 
-- 64bit Centos 6.10 virtual machine with virtual 64GB HDD and 3GB RAM and legacy LAMP stack.
-- Clean [Bento](https://app.vagrantup.com/bento/boxes/centos-6) box.
+- 64bit Centos 6.10 virtual machine with virtual 64GB HDD and 3GB RAM and legacy LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-6).
 - Custom `.bashrc` to modify bash settings.
 - Updated Yum repositories for Centos 6 after End Of Life.
 - Configure LAMP settings from the host machine instead of inside the guest machine.
@@ -50,7 +49,7 @@ vagrant ssh
 - Apache serves any local website at `http://domain.com.localhost:8000` with [VirtualDocumentRoot](https://httpd.apache.org/docs/2.2/mod/mod_vhost_alias.html).
 - Add more VirtualHost blocks from the host machine.
 - MySQL and Adminer with no password for username `root`.
-    - Avoid writing a password a zillions times through development.
+    - Avoid writing a password a zillion times through development.
 - Adminer served at `http://localhost:8000/adminer.php`.
 - Development-specific `php.ini` settings from `.htaccess` for all local websites.
 
