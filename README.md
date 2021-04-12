@@ -33,7 +33,7 @@ vagrant ssh
 
 ### Result
 
-- 64bit Centos 6.10 virtual machine with virtual 64GB HDD and 3GB RAM and legacy LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-6).
+- 64bit Centos 6.10 virtual machine with virtual 64GB HDD, 3GB RAM and legacy LAMP stack from [Bento](https://app.vagrantup.com/bento/boxes/centos-6).
 - Custom `.bashrc` to modify bash settings.
 - Updated Yum repositories for Centos 6 after End Of Life.
 - Configure LAMP settings from the host machine instead of inside the guest machine.
