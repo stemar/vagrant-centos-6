@@ -49,7 +49,7 @@ vagrant ssh
 - Synchronized projects/code directories.
     - Disabled default `/vagrant` synchronized to `Vagrantfile`'s location.
 - Apache serves any local website at `http://domain.com.localhost:8000` with [VirtualDocumentRoot](https://httpd.apache.org/docs/2.2/mod/mod_vhost_alias.html).
-- Add more VirtualHost blocks from the host machine.
+- Add more VirtualHost blocks from the host machine and re-provision the Vagrant box.
 - MySQL and Adminer with no password for username `root`.
     - Avoid writing a password a zillion times through development.
 - Adminer served at `http://localhost:8000/adminer.php`.
