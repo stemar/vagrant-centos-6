@@ -40,7 +40,7 @@ vagrant ssh
 - Provisioning in `bash` because the commands can easily be copied and pasted inside a VM manually for experimentation.
 - Keep multiple Vagrant boxes in a separate location than your projects|code location.
     - `.vagrant/` is created independently within each VM directory.
-    - Avoid port collision by editing `config/vagrantfile.yaml`.
+    - Avoid port collision by editing `settings.yaml`.
     - Multiple Vagrant boxes can be run concurrently from separate terminal tabs.
 - Copied SSH keys to use the same in and out of VM.
 - Copied Git and Subversion configurations to use the same in and out of VM.
@@ -75,7 +75,7 @@ cat ~/.gitconfig
 
 ## Vagrant preparation
 
-Edit values in `config/vagrant.yaml`.
+Edit values in `settings.yaml`.
 
 - Edit the guest machine's `hostname` or the `memory` values if necessary.
 - Change `synced_folder` values to match your host machine pathname.
