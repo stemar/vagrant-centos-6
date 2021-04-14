@@ -3,7 +3,7 @@
 Make a Vagrant box with CentOS 6.10 LAMP stack, plus configure it for development.
 
 - Host machine: Linux or Mac.
-- Guest machine: CentOS 6.10, Apache 2.2, MySQL 5.1.73, PHP 5.3.3, and upgraded Git > 2.x.x.
+- Guest machine: CentOS 6.10, Apache 2.2, MySQL 5.1.73, PHP 5.3.3, Python 2, and upgraded Git > 2.x.x.
 
 - Leave code and version control files physically outside the VM while virtually accessing them inside the VM.
 - Use any GUI tool (IDEs, browsers, database administration applications, Git clients) outside the VM to access code and data inside the VM.
@@ -173,6 +173,7 @@ cat /etc/httpd/conf.d/php.conf
 cat /etc/httpd/conf.d/localhost.conf
 cat /etc/httpd/conf.d/virtualhost.conf
 cat /etc/httpd/conf.d/adminer.conf
+sudo cat /etc/httpd/logs/error_log
 ```
 
 Check MySQL databases:

@@ -23,7 +23,6 @@ echo '==> Installing Linux tools'
 cp $VM_CONFIG_PATH/bashrc /home/vagrant/.bashrc
 chown vagrant:vagrant /home/vagrant/.bashrc
 yum -q -y install nano tree zip unzip whois
-yum -q -y update openssl
 
 echo '==> Setting Git 2.x repository'
 
@@ -36,7 +35,7 @@ yum -q -y install svn git
 
 echo '==> Installing Apache'
 
-yum -q -y install httpd mod_ssl
+yum -q -y install httpd mod_ssl openssl
 usermod -a -G apache vagrant
 chown -R root:apache /var/log/httpd
 cp $VM_CONFIG_PATH/localhost.conf /etc/httpd/conf.d/localhost.conf
@@ -61,7 +60,7 @@ yum -q -y install mysql mysql-server
 
 echo '==> Installing PHP'
 
-rpm --import --quiet http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+rpm --import --quiet https://archive.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
 yum -q -y install php php-common \
     php-bcmath php-devel php-gd php-imap php-intl php-ldap \
     php-mbstring php-mysql php-mysqli php-mysqlnd php-odbc php-opcache \
