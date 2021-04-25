@@ -1,7 +1,7 @@
 echo '==> Setting time zone'
 
 rm /etc/localtime
-ln -s /usr/share/zoneinfo/Canada/Pacific /etc/localtime
+ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 zdump /etc/localtime
 
 echo '==> Setting Centos 6.10 Yum repository'
