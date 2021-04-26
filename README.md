@@ -1,6 +1,6 @@
-# Vagrant box CentOS 6.10 LAMP
+# Vagrant box CentOS 6 LAMP
 
-Make a Vagrant box with CentOS 6.10 LAMP stack, plus configure it for development.
+Make a Vagrant box with CentOS 6 LAMP stack, plus configure it for development.
 
 - Host machine: Linux or Mac.
 - Guest machine: CentOS 6.10, Apache 2.2, MySQL 5.1.73, PHP 5.3.3, Python 2, Git 2+.
@@ -20,8 +20,8 @@ In host machine terminal:
 
 ```bash
 mkdir -p ~/VM && cd $_
-git clone --depth 1 https://github.com/stemar/vagrant-centos-6-10.git centos-6-10
-cd ~/VM/centos-6-10
+git clone --depth 1 https://github.com/stemar/vagrant-centos-6.git centos-6
+cd ~/VM/centos-6
 vagrant up --provision
 vagrant ssh
 ```
@@ -84,6 +84,20 @@ Edit values in `settings.yaml`.
 - Change `:synced_folder` values to match your host machine pathname.
 - Edit the `:copy_files` values:
     - Ex.: Remove the Subversion array if you don't have it on your host machine.
+- Edit the `:php_error_reporting` value if necessary.
+
+Edit `config` files if needed.
+
+- Edit the `VirtualDocumentRoot` public directory value in `virtualhost.conf`.
+- Add `VirtualHost`s in `virtualhost.conf`.
+- Edit `php.ini.htaccess` values.
+- Add/edit lines to `bash_aliases`.
+
+Edit `provision.sh` if needed.
+
+- Add/edit Linux tools.
+- Add/edit PHP libraries.
+- Add anything you need.
 
 ---
 
@@ -92,7 +106,7 @@ Edit values in `settings.yaml`.
 Provision the box from the host machine terminal:
 
 ```bash
-cd ~/VM/centos-6-10
+cd ~/VM/centos-6
 vagrant up --provision
 ```
 
@@ -131,7 +145,7 @@ vagrant ssh
 Bash prompt in virtual machine is now:
 
 ```bash
-[vagrant@centos-6-10 ~]$
+[vagrant@centos-6 ~]$
 ```
 
 ---

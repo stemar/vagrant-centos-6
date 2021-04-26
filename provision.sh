@@ -67,6 +67,8 @@ yum -q -y install php php-common \
     php-pdo_mysql php-pdo_odbc php-posix php-pdo php-pear php-pecl-mcrypt \
     php-pecl-xdebug php-pspell php-soap php-tidy php-xml php-xmlrpc
 cp $VM_CONFIG_PATH/php.ini.htaccess /var/www/.htaccess
+PHP_ERROR_REPORTING_INT=$(php -r 'echo '"$PHP_ERROR_REPORTING"';')
+sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htaccess
 
 echo '==> Installing Adminer'
 
