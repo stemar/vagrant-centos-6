@@ -4,7 +4,7 @@ rm /etc/localtime
 ln -s /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 zdump /etc/localtime
 
-echo '==> Setting Centos 6.10 Yum repository'
+echo '==> Setting Centos 6 Yum repository'
 
 # https://www.getpagespeed.com/server-setup/how-to-fix-yum-after-centos-6-went-eol
 cp $VM_CONFIG_PATH/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo

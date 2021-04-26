@@ -209,7 +209,7 @@ php -i
 
 <http://localhost:8000>
 
-You see the default Centos 6.10 Apache 2 Test Page.
+You see the default Centos 6 Apache 2 Test Page.
 
 #### Check Adminer
 
