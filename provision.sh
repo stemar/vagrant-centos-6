@@ -84,12 +84,12 @@ sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.con
 echo '==> Starting Apache'
 
 apachectl configtest
-service httpd start
+service httpd restart
 chkconfig httpd on
 
 echo '==> Starting MySQL'
 
-service mysqld start
+service mysqld restart
 chkconfig mysqld on
 mysqladmin -u root password ""
 
