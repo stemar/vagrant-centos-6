@@ -7,11 +7,11 @@ zdump /etc/localtime
 echo '==> Setting Centos 6 Yum repository'
 
 # https://www.getpagespeed.com/server-setup/how-to-fix-yum-after-centos-6-went-eol
-cp $VM_CONFIG_PATH/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
-cp $VM_CONFIG_PATH/centos6-epel-eol.repo /etc/yum.repos.d/epel.repo
+cp /vagrant/config/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
+cp /vagrant/config/centos6-epel-eol.repo /etc/yum.repos.d/epel.repo
 yum -q -y install centos-release-scl
-cp $VM_CONFIG_PATH/centos6-scl-eol.repo /etc/yum.repos.d/CentOS-SCLo-scl.repo
-cp $VM_CONFIG_PATH/centos6-scl-rh-eol.repo /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
+cp /vagrant/config/centos6-scl-eol.repo /etc/yum.repos.d/CentOS-SCLo-scl.repo
+cp /vagrant/config/centos6-scl-rh-eol.repo /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo
 
 echo '==> Cleaning Yum cache'
 
@@ -20,7 +20,7 @@ rm -rf /var/cache/yum
 
 echo '==> Installing Linux tools'
 
-cp $VM_CONFIG_PATH/bashrc /home/vagrant/.bashrc
+cp /vagrant/config/bashrc /home/vagrant/.bashrc
 chown vagrant:vagrant /home/vagrant/.bashrc
 yum -q -y install nano tree zip unzip whois
 
@@ -29,17 +29,17 @@ echo '==> Setting Git 2.x repository'
 rpm --import --quiet http://opensource.wandisco.com/RPM-GPG-KEY-WANdisco
 yum -q -y install http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-git-release-6-1.noarch.rpm
 
-echo '==> Installing Subversion and Git'
+echo '==> Installing Git and Subversion'
 
-yum -q -y install svn git
+yum -q -y install git svn
 
 echo '==> Installing Apache'
 
-yum -q -y install httpd mod_ssl openssl
+yum -q -y install httpd mod_ssl
 usermod -a -G apache vagrant
 chown -R root:apache /var/log/httpd
-cp $VM_CONFIG_PATH/localhost.conf /etc/httpd/conf.d/localhost.conf
-cp $VM_CONFIG_PATH/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
+cp /vagrant/config/localhost.conf /etc/httpd/conf.d/localhost.conf
+cp /vagrant/config/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|GUEST_SYNCED_FOLDER|'$GUEST_SYNCED_FOLDER'|' /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/virtualhost.conf
 
@@ -51,8 +51,8 @@ fi
 while read line; do
     esc_line=$(sed 's:/:\\/:g' <<< $(printf '%q\n' "$line"))
     sed -i "/$esc_line/d" /etc/httpd/conf/httpd.conf
-done < $VM_CONFIG_PATH/httpd.conf.fix
-cat $VM_CONFIG_PATH/httpd.conf.fix >> /etc/httpd/conf/httpd.conf
+done < /vagrant/config/httpd.conf.fix
+cat /vagrant/config/httpd.conf.fix >> /etc/httpd/conf/httpd.conf
 
 echo '==> Installing MySQL'
 
@@ -66,7 +66,7 @@ yum -q -y install php php-common \
     php-mbstring php-mysql php-mysqli php-mysqlnd php-odbc php-opcache \
     php-pdo_mysql php-pdo_odbc php-posix php-pdo php-pear php-pecl-mcrypt \
     php-pecl-xdebug php-pspell php-soap php-tidy php-xml php-xmlrpc
-cp $VM_CONFIG_PATH/php.ini.htaccess /var/www/.htaccess
+cp /vagrant/config/php.ini.htaccess /var/www/.htaccess
 PHP_ERROR_REPORTING_INT=$(php -r 'echo '"$PHP_ERROR_REPORTING"';')
 sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htaccess
 
@@ -78,29 +78,29 @@ if [ ! -d /usr/share/adminer ]; then
     sed -i 's|{if($F=="")return|{if(true)|' /usr/share/adminer/adminer.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
-cp $VM_CONFIG_PATH/adminer.conf /etc/httpd/conf.d/adminer.conf
+cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
 sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
 
 echo '==> Starting Apache'
 
 apachectl configtest
-service httpd restart
+service httpd restart >/dev/null
 chkconfig httpd on
 
 echo '==> Starting MySQL'
 
-service mysqld restart
+service mysqld restart >/dev/null
 chkconfig mysqld on
 mysqladmin -u root password ""
 
 echo '==> Versions:'
 
 cat /etc/redhat-release
-echo $(openssl version)
-echo $(curl --version | head -n1)
-echo $(svn --version | grep svn,)
-echo $(git --version)
-echo $(httpd -V | head -n1)
-echo $(mysql -V)
-echo $(php -v | head -n1)
-echo $(python --version)
+openssl version
+curl --version | head -n1
+svn --version | grep svn,
+git --version
+httpd -V | head -n1
+mysql -V
+php -v | head -n1
+python --version
