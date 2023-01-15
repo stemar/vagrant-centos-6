@@ -24,7 +24,7 @@ In host machine terminal:
 
 ```bash
 mkdir -p ~/VM && cd $_
-git clone --depth 1 https://github.com/stemar/vagrant-centos-6.git centos-6
+git clone --depth=1 https://github.com/stemar/vagrant-centos-6.git centos-6
 cd ~/VM/centos-6
 vagrant up --provision
 vagrant ssh
