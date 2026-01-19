@@ -21,7 +21,7 @@ echo '==> Installing Linux tools'
 
 cp /vagrant/config/bashrc /home/vagrant/.bashrc
 chown vagrant:vagrant /home/vagrant/.bashrc
-yum -q -y install nano tree zip unzip whois
+yum -q -y install nano tree zip unzip whois &>/dev/null
 
 echo '==> Setting Git 2.x repository'
 
@@ -30,17 +30,17 @@ yum -q -y install http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-gi
 
 echo '==> Installing Git and Subversion'
 
-yum -q -y install git svn
+yum -q -y install git svn &>/dev/null
 
 echo '==> Installing Apache'
 
-yum -q -y install httpd mod_ssl
+yum -q -y install httpd &>/dev/null
 usermod -a -G apache vagrant
 chown -R root:apache /var/log/httpd
 cp /vagrant/config/localhost.conf /etc/httpd/conf.d/localhost.conf
 cp /vagrant/config/virtualhost.conf /etc/httpd/conf.d/virtualhost.conf
 sed -i 's|GUEST_SYNCED_FOLDER|'$GUEST_SYNCED_FOLDER'|' /etc/httpd/conf.d/virtualhost.conf
-sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/virtualhost.conf
+sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/virtualhost.conf
 
 echo '==> Fixing httpd.conf'
 
@@ -55,7 +55,7 @@ cat /vagrant/config/httpd.conf.fix >> /etc/httpd/conf/httpd.conf
 
 echo '==> Installing MySQL'
 
-yum -q -y install mysql mysql-server
+yum -q -y install mysql mysql-server &>/dev/null
 
 echo '==> Installing PHP'
 
@@ -64,7 +64,7 @@ yum -q -y install php php-common \
     php-bcmath php-devel php-gd php-imap php-intl php-ldap \
     php-mbstring php-mysql php-mysqli php-mysqlnd php-odbc php-opcache \
     php-pdo_mysql php-pdo_odbc php-posix php-pdo php-pear php-pecl-mcrypt \
-    php-pecl-xdebug php-pspell php-soap php-tidy php-xml php-xmlrpc
+    php-pecl-xdebug php-pspell php-soap php-tidy php-xml php-xmlrpc &>/dev/null
 cp /vagrant/config/php.ini.htaccess /var/www/.htaccess
 PHP_ERROR_REPORTING_INT=$(php -r 'echo '"$PHP_ERROR_REPORTING"';')
 sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htaccess
@@ -72,17 +72,17 @@ sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htacces
 echo '==> Installing Adminer'
 
 if [ ! -d /usr/share/adminer ]; then
-    mkdir -p /usr/share/adminer/plugins
+    mkdir -p /usr/share/adminer/adminer-plugins
     curl -LsS https://www.adminer.org/latest-en.php -o /usr/share/adminer/latest-en.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php -o /usr/share/adminer/plugins/plugin.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/plugins/login-password-less.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/plugins/dump-json.php
-    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/plugins/pretty-json-column.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-password-less.php -o /usr/share/adminer/adminer-plugins/login-password-less.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/dump-json.php -o /usr/share/adminer/adminer-plugins/dump-json.php
+    curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/plugins/pretty-json-column.php -o /usr/share/adminer/adminer-plugins/pretty-json-column.php
     curl -LsS https://raw.githubusercontent.com/vrana/adminer/master/designs/nicu/adminer.css -o /usr/share/adminer/adminer.css
 fi
 cp /vagrant/config/adminer.php /usr/share/adminer/adminer.php
+cp /vagrant/config/adminer-plugins.php /usr/share/adminer/adminer-plugins.php
 cp /vagrant/config/adminer.conf /etc/httpd/conf.d/adminer.conf
-sed -i 's|FORWARDED_PORT_80|'$FORWARDED_PORT_80'|' /etc/httpd/conf.d/adminer.conf
+sed -i 's|HOST_HTTP_PORT|'$HOST_HTTP_PORT'|' /etc/httpd/conf.d/adminer.conf
 
 echo '==> Starting Apache'
 
@@ -96,14 +96,15 @@ service mysqld restart >/dev/null
 chkconfig mysqld on
 mysqladmin -u root password ""
 
-echo '==> Versions:'
+echo
+echo '==> Stack versions <=='
 
 cat /etc/redhat-release
 openssl version
 curl --version | head -n1
 svn --version | grep svn,
 git --version
-httpd -V | head -n1
+httpd -V | head -n1 | cut -d ' ' -f 3-
 mysql -V
 php -v | head -n1
 python --version
