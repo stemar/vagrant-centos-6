@@ -169,7 +169,7 @@ cat /etc/redhat-release
 httpd -V
 mysql -V
 php -v
-python2 --version
+python --version
 svn --version
 git --version
 openssl version
