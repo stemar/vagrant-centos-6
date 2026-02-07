@@ -65,9 +65,7 @@ yum -q -y install php php-common \
     php-mbstring php-mysql php-mysqli php-mysqlnd php-odbc php-opcache \
     php-pdo_mysql php-pdo_odbc php-posix php-pdo php-pear php-pecl-mcrypt \
     php-pecl-xdebug php-pspell php-soap php-tidy php-xml php-xmlrpc &>/dev/null
-cp /vagrant/config/php.ini.htaccess /var/www/.htaccess
-PHP_ERROR_REPORTING_INT=$(php -r 'echo '"$PHP_ERROR_REPORTING"';')
-sed -i 's|PHP_ERROR_REPORTING_INT|'$PHP_ERROR_REPORTING_INT'|' /var/www/.htaccess
+cp /vagrant/config/php.ini /var/www/php.ini
 
 echo '==> Installing Adminer'
 
